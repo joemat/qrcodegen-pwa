@@ -1,9 +1,10 @@
-var cacheName = 'hello-pwa';
+var cacheName = 'qrcodegen';
 var filesToCache = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/main.js'
+  './',
+  './index.html',
+  './css/style.css',
+  './js/main.js',
+  './lib/qrcode.js/qrcode.js'
 ];
 
 /* Start the service worker and cache all of the app's content */

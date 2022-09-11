@@ -1,19 +1,15 @@
-# Hello PWA
-The classic Hello World program as a Progressive Web App
+# QR code generator PWA app
 
-![Hello World Screenshot](./screenshot.jpg "Hello World Screenshot")
+A sandbox project to learn javascript coding.
 
-## What It Is
+Go to https://joemat.github.io/qrcodegen-pwa/ for application.
 
-A simple PWA demo that displays the text "Hello, World!" utilizing an app manifest, service workers and caching. This demo is written in plain-vanilla HTML, CSS and Javascript (ES6). It has no dependencies.
+# Kudos
 
-I've also written a tutorial to go along with the code. Read it on Medium:
+* https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605
+* https://jamesjohnson280.github.io/hello-pwa/
+* https://davidshimjs.github.io/qrcodejs/
 
-https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605
-
-## Demo
-
-https://jamesjohnson280.github.io/hello-pwa/
 
 ## Browser Compatibility
 
