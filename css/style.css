@@ -19,5 +19,11 @@ html,
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+.qrCode {  
+  text-align: center;  
+  margin: 10pt auto 20pt;
+  padding: 10pt;
 }

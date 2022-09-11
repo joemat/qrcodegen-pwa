@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Hello World</title>
+  <title>QR Code Generator</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -16,9 +16,84 @@
   <meta name="msapplication-TileColor" content="#FFFFFF">
 </head>
 <body class="fullscreen">
+<script src="lib/qrcode.js/qrcode.js"></script>
+  
   <div class="container">
-    <h1 class="title">Hello World!</h1>
-  </div>
-  <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
+
+    <h2 class="title">QR Code Generator</h2>
+    <h3>Text to encode</h3>
+    <textarea id="fileContent" name="textarea" rows="20" cols="50" oninput="updateQrCode()">Initial</textarea>
+    <br/><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..."/>
+    <br/>
+    <div id="qrcode" class="qrCode"></div>   
+    <br/>    
+    <div id="downloadLinkDiv"></div>
+    <div id="footer">
+    <br/>
+    <hr>    
+    <h3>based on:</h3>
+    <ul>
+      <li><a href="https://github.com/jamesjohnson280/hello-pwa">hello-pwa</a> (<a href="lib/LICENSE">MIT License</a>)</li>
+      <li><a href="https://davidshimjs.github.io/qrcodejs/">QRCode.js</a> (<a href="lib/qrcode.js/LICENSE">MIT License</a>)</li>
+    </ul>
+    </div>
+  
+
+    <script>
+      var qrcode = undefined;
+      updateQrCode(); // show initial qrcode
+      
+      function loadFile(event) {
+        const filename = event.target.files[0];
+        
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+          text = event.target.result;
+          document.getElementById('fileContent').value = text;
+          updateQrCode();
+        });
+        reader.readAsText(filename)
+      }
+
+      function updateQrCode() {
+        
+        if (qrcode != undefined) {
+          qrcode.clear();
+          document.getElementById("qrcode").textContent = ""
+        }
+        textToEncode = document.getElementById('fileContent').value;
+        qrCodeDiv = document.getElementById("qrcode");
+        qrcode = new QRCode(qrCodeDiv, {
+          text: textToEncode          
+        });
+        registerImageObserver();
+      }
+
+      function registerImageObserver() {
+        qrCodeImage = document.querySelector("div.qrCode > img");
+        observer = new MutationObserver((changes) => {
+                changes.forEach(change => {
+              if(change.attributeName.includes('src')){
+                updateDownloadUrl();
+              }
+          });
+        });        
+        observer.observe(qrCodeImage, {attributes : true});
+      }
+
+      function updateDownloadUrl() {
+        qrCodeImage = document.querySelector("div.qrCode > img");
+        console.log("IMG:" + qrCodeImage.getAttribute('style') + " -- " + qrCodeImage.getAttribute('alt') + " -- " + qrCodeImage.getAttribute('src'));
+        var downloadLink = document.createElement("a");
+        downloadLink.setAttribute('href',  qrCodeImage.getAttribute('src'));
+        downloadLink.text = "Download"
+        downloadLink.download = true
+        document.getElementById("downloadLinkDiv").replaceChildren(downloadLink)
+              
+      }
+      </script>
+</div>
+
 </body>
 </html>
