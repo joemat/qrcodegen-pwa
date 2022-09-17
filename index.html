@@ -18,31 +18,42 @@
 </head>
 
 <body class="fullscreen">
-  
+
+
   <div class="container">
     <h2 class="title">QR Code Generator</h2>
+
+    <ul>
+      <li><a href="javascript:document.getElementById('loadFileDialog').click()">Load</a></li>
+      <li><a href="javascript:document.getElementById('imgDownloadLink').click()">Save</a></li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Specs</a>
+        <div class="dropdown-content">
+          <a href="https://en.wikipedia.org/wiki/EPC_QR_code">Payments</a>
+          <a href="https://en.wikipedia.org/wiki/VCard">vcard</a>
+          <a href="https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi%E2%80%91Fi_network">Wi-Fi Network</a>
+          </div>
+      </li>
+      <li style="float:right"><a href="#about">About</a></li>
+
+    </ul>
+        
     <h3>Text to encode</h3>
     <textarea id="fileContent" name="textarea" rows="20" cols="40" oninput="updateQrCode()">https://joemat.github.io/qrcodegen-pwa/</textarea>
-    <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." />
+    <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." hidden=true/>
     <br />
-    <a id="imgDownloadLink" target="_blank"><div id="qrcode" class="qrCode"></div></a>
+    <a id="imgShowLink" target="_blank"><div id="qrcode" class="qrCode"></div></a>
     <div id="downloadLinkDiv"></div>
     <div id="footer">
       <br />
       <hr>
-      <h3>Content specs:</h3>
-      <ul>
-        <li><a href="https://en.wikipedia.org/wiki/EPC_QR_code">Payments</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/VCard">vcard</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi%E2%80%91Fi_network">Wi-Fi Network</a></li>
-      </ul>
-      <hr/>
-      <h3>Code based on:</h3>
+      <h3 id="about">Code based on:</h3>
       <ul>
         <li><a href="https://github.com/jamesjohnson280/hello-pwa">hello-pwa</a> (<a href="lib/LICENSE">MIT License</a>)
         </li>
         <li><a href="https://davidshimjs.github.io/qrcodejs/">QRCode.js</a> (<a href="lib/qrcode.js/LICENSE">MIT
             License</a>)</li>
+        <li><a href="https://www.w3schools.com/Css/css_navbar.asp">w3schools tutorials</a></li>
       </ul>
     </div>
 
@@ -90,11 +101,12 @@
       function updateDownloadUrl() {
         qrCodeImage = document.querySelector("div.qrCode > img");        
         downloadLink = document.createElement("a");
+        downloadLink.setAttribute('id', "imgDownloadLink")
         downloadLink.setAttribute('href', qrCodeImage.getAttribute('src'));
         downloadLink.text = "Download";
         downloadLink.download = "qrcode.png";
         document.getElementById("downloadLinkDiv").replaceChildren(downloadLink)
-        document.getElementById("imgDownloadLink").setAttribute('href', qrCodeImage.getAttribute('src'));
+        document.getElementById("imgShowLink").setAttribute('href', qrCodeImage.getAttribute('src'));
       }
     </script>
   </div>
