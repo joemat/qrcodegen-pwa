@@ -18,97 +18,225 @@
 </head>
 
 <body class="fullscreen">
-
-
   <div class="container">
-    <h2 class="title">QR Code Generator</h2>
 
-    <ul>
-      <li><a href="javascript:document.getElementById('loadFileDialog').click()">Load</a></li>
-      <li><a href="javascript:document.getElementById('imgDownloadLink').click()">Save</a></li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Specs</a>
-        <div class="dropdown-content">
-          <a href="https://en.wikipedia.org/wiki/EPC_QR_code">Payments</a>
-          <a href="https://en.wikipedia.org/wiki/VCard">vcard</a>
-          <a href="https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi%E2%80%91Fi_network">Wi-Fi Network</a>
+    <!-- main view -->
+    <div id="mainView">
+
+      <!-- main menu -->
+      <ul class="menu">
+        <li class="menu-dropdown"><a href="javascript:void(0)" class="menu-dropbtn">Load</a>
+          <div class="menu-dropdown-content">
+            <a href="javascript:document.getElementById('loadFileDialog').click()">File ...</a>
+            <a href="javascript:loadVcardTemplate()">Template Vcard</a>
+            <a href="javascript:loadPaymentTemplate()">Template Payment</a>
+            <a href="javascript:loadWifiTemplate()">Template Wi-Fi Network</a>
+            <a href="javascript:loadRecent()">Recent</a>
           </div>
-      </li>
-      <li style="float:right"><a href="#about">About</a></li>
-
-    </ul>
-        
-    <h3>Text to encode</h3>
-    <textarea id="fileContent" name="textarea" rows="20" cols="40" oninput="updateQrCode()">https://joemat.github.io/qrcodegen-pwa/</textarea>
-    <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." hidden=true/>
-    <br />
-    <a id="imgShowLink" target="_blank"><div id="qrcode" class="qrCode"></div></a>
-    <div id="downloadLinkDiv"></div>
-    <div id="footer">
-      <br />
-      <hr>
-      <h3 id="about">Code based on:</h3>
-      <ul>
-        <li><a href="https://github.com/jamesjohnson280/hello-pwa">hello-pwa</a> (<a href="lib/LICENSE">MIT License</a>)
         </li>
-        <li><a href="https://davidshimjs.github.io/qrcodejs/">QRCode.js</a> (<a href="lib/qrcode.js/LICENSE">MIT
-            License</a>)</li>
-        <li><a href="https://www.w3schools.com/Css/css_navbar.asp">w3schools tutorials</a></li>
+        <li class="menu-dropdown"><a href="javascript:void(0)" class="menu-dropbtn">QR Code</a>
+          <div class="menu-dropdown-content">
+            <a href="javascript:showQrCodeOnlyView(true)">Show</a>
+            <a href="javascript:document.getElementById('imgDownloadLink').click()">Save</a>
+          </div>
+        </li>
+
+        <li style="float:right"><a class="menu" href="javascript:showAboutView()">About</a></li>
       </ul>
+
+      <!-- main content area -->
+      <h3 class="title">QR Code Generator</h3>
+
+      <textarea id="fileContent" name="textarea" rows="20" cols="40"
+        oninput="updateQrCode()">https://joemat.github.io/qrcodegen-pwa/</textarea>
+      <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." hidden=true />
+      <br />
+
+      <!-- QR Code Image-->
+      <div id="qrcode" class="qrCode"></div>
+      <div id="downloadLinkDiv" hidden="true"></div>
     </div>
 
-    <script src="lib/qrcode.js/qrcode.js"></script>
-    <script>
-      var qrcode = undefined;
-      updateQrCode(); // show initial qrcode
+    <!-- QR code only view -->
+    <div id="qrCodeOnlyView">
+      <ul class="menu">
+        <li style="float:right"><a class="menu" href="javascript:showMainView(false)">Back</a></li>
+      </ul>
+      <div id="qrcodeOnlyDiv" class="qrCode"></div>
+    </div>
 
-      function loadFile(event) {
-        const filename = event.target.files[0];
+    <!-- about view -->
+    <div id="aboutView">
+      <!-- about menu -->
+      <ul class="menu">
+        <li style="float:right"><a class="menu" href="javascript:showMainView()">Back</a></li>
+      </ul>
 
-        const reader = new FileReader();
-        reader.addEventListener('load', (event) => {
-          text = event.target.result;
-          document.getElementById('fileContent').value = text;
-          updateQrCode();
-        });
-        reader.readAsText(filename)
+      <!-- about content area -->
+      <h3>About</h3>
+      A simple QR code Generator. <br />
+
+      <a href="LICENSE">MIT License</a>
+      <a href="https://codeberg.org/joemat/qrcodegen-pwa" target="_blank">Code</a>
+      <a href="https://codeberg.org/joemat/qrcodegen-pwa/issues" target="_blank">Issue Tracker</a>
+      <hr>
+      
+      <h4 id="about">Code based on:</h4>
+      <a href="https://github.com/jamesjohnson280/hello-pwa" target="_blank">hello-pwa</a> (<a href="lib/LICENSE">MIT
+        License</a>)
+      <br />
+      <a href="https://davidshimjs.github.io/qrcodejs/" target="_blank">QRCode.js</a> (<a
+        href="lib/qrcode.js/LICENSE">MIT
+        License</a>)
+      <br />
+      <a href="https://www.w3schools.com/Css/css_navbar.asp" target="_blank">w3schools tutorials</a>
+
+      <hr/>
+      <h4>Specs</h4>
+      <a href="https://en.wikipedia.org/wiki/EPC_QR_code" target="_blank">Payments</a>
+      <br />
+      <a href="https://en.wikipedia.org/wiki/VCard" target="_blank">vcard</a>
+      <br />
+      <a href="https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi%E2%80%91Fi_network" target="_blank">Wi-Fi
+        Network</a>
+      </ul>
+    </div>
+  </div>
+
+  <script src="lib/qrcode.js/qrcode.js"></script>
+  <script>
+    const VCARD_TEMPLATE = `BEGIN:VCARD
+VERSION:4.0
+FN:<Formatted name string>
+N:<Lastname>;<Firstname>;;<Title>;
+ADR;TYPE=<Purpose, e.g. home>:;;<Street and No.>;<City>;<State>;<Postcode>;<Country>
+TEL;TYPE=<cell|voice|fax>,<Purpose, e.g. home>:<number>
+EMAIL;TYPE=<Purpose, e.g. home>:<email>
+END:VCARD
+        `
+
+    const PAYMENT_TEMPLATE = `BCD
+001
+1
+SCT
+<BIC target bank>
+<Name of recipient>
+<IBAN recipient>
+<Currency, e.g. EUR><Amount, format #.##>
+
+
+<Reason>
+
+`
+    const WIFI_TEMPLATE = `WIFI:S:<SSID>;T:<WEP|WPA|blank>;P:<PASSWORD>;H:<Hidden? true|false|blank>;;`
+
+    var qrcode = undefined;
+    var recent = "";
+    updateQrCode(); // show initial qrcode
+    showMainView();
+
+    function replaceTextWith(newText) {
+      recent = document.getElementById('fileContent').value
+      document.getElementById('fileContent').value = newText;
+      updateQrCode();
+    }
+
+    function loadFile(event) {
+      const filename = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.addEventListener('load', (event) => {
+        replaceTextWith(event.target.result);
+      });
+      reader.readAsText(filename)
+    }
+
+    function loadVcardTemplate() {
+      replaceTextWith(VCARD_TEMPLATE);
+    }
+
+    function loadPaymentTemplate() {
+      replaceTextWith(PAYMENT_TEMPLATE);
+    }
+
+    function loadWifiTemplate() {
+      replaceTextWith(WIFI_TEMPLATE);
+    }
+
+    function loadRecent() {
+      replaceTextWith(recent);
+    }
+
+    function updateQrCode() {
+      if (qrcode != undefined) {
+        qrcode.clear();
+        document.getElementById("qrcode").textContent = ""
       }
+      textToEncode = document.getElementById('fileContent').value;
+      qrCodeDiv = document.getElementById("qrcode");
+      qrcode = new QRCode(qrCodeDiv, {
+        text: textToEncode
+      });
+      registerImageObserver();
+    }
 
-      function updateQrCode() {
+    function registerImageObserver() {
+      imagesSelector = document.querySelector("img");
+      observer = new MutationObserver(() => {
+        updateDownloadUrl()
+        updateQrCodeOnlyDiv()
+      });
+      observer.observe(imagesSelector, {
+        attributes: true,
+        attributeList: ['src']
+      });
+    }
 
-        if (qrcode != undefined) {
-          qrcode.clear();
-          document.getElementById("qrcode").textContent = ""
-        }
-        textToEncode = document.getElementById('fileContent').value;
-        qrCodeDiv = document.getElementById("qrcode");
-        qrcode = new QRCode(qrCodeDiv, {
-          text: textToEncode
-        });
-        registerImageObserver();
-      }
+    function updateDownloadUrl() {
+      qrCodeImage = document.querySelector("div.qrCode > img");
+      downloadLink = document.createElement("a");
+      downloadLink.setAttribute('id', "imgDownloadLink")
+      downloadLink.setAttribute('href', qrCodeImage.getAttribute('src'));
+      downloadLink.text = "Download";
+      downloadLink.download = "qrcode.png";
+      document.getElementById("downloadLinkDiv").replaceChildren(downloadLink)
+    }
 
-      function registerImageObserver() {
-        imagesSelector = document.querySelector("img");
-        observer = new MutationObserver(() => {
-              updateDownloadUrl()});
-              observer.observe(imagesSelector, { 
-          attributes: true,
-          attributeList: [ 'src']
-        });
-      }
+    function updateQrCodeOnlyDiv() {
 
-      function updateDownloadUrl() {
-        qrCodeImage = document.querySelector("div.qrCode > img");        
-        downloadLink = document.createElement("a");
-        downloadLink.setAttribute('id', "imgDownloadLink")
-        downloadLink.setAttribute('href', qrCodeImage.getAttribute('src'));
-        downloadLink.text = "Download";
-        downloadLink.download = "qrcode.png";
-        document.getElementById("downloadLinkDiv").replaceChildren(downloadLink)
-        document.getElementById("imgShowLink").setAttribute('href', qrCodeImage.getAttribute('src'));
-      }
-    </script>
+
+      qrCodeOnlyDiv = document.getElementById("qrcodeOnlyDiv");
+      qrcodeOnlyDiv.textContent = "";
+
+      qrCodeImage = document.querySelector("div.qrCode > img");
+
+      qrCodeCopy = document.createElement("img");
+      qrCodeCopy.setAttribute("style", qrCodeImage.getAttribute("style"))
+      qrCodeCopy.setAttribute("alt", qrCodeImage.getAttribute("alt"))
+      qrCodeCopy.setAttribute("src", qrCodeImage.getAttribute("src"))
+      qrcodeOnlyDiv.replaceChildren(qrCodeCopy)
+
+    }
+
+    function showAboutView() {
+      document.getElementById("mainView").style.display = "none";
+      document.getElementById("qrCodeOnlyView").style.display = "none";
+      document.getElementById("aboutView").style.display = "inherit";
+    }
+
+    function showMainView() {
+      document.getElementById("mainView").style.display = "inherit";
+      document.getElementById("qrCodeOnlyView").style.display = "none";
+      document.getElementById("aboutView").style.display = "none";
+    }
+
+    function showQrCodeOnlyView() {
+      document.getElementById("mainView").style.display = "none";
+      document.getElementById("qrCodeOnlyView").style.display = "inherit";
+      document.getElementById("aboutView").style.display = "none";
+    }
+
+  </script>
   </div>
   <script src="js/main.js"></script>
 </body>

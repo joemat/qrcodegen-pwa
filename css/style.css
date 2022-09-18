@@ -14,7 +14,7 @@ html,
 
 /* Center the content in the browser window */
 .container {
-  margin: auto;
+  width: 100%;
   text-align: center;
 }
 
@@ -33,9 +33,9 @@ html,
   align-self: center;
 }
 
-/* menu */
+/* menu styling, based on code from https://www.w3schools.com/Css/css_navbar.asp */
 
-ul {
+ul.menu {
   list-style-type: none;
   margin: 0;
   padding: 0; 
@@ -44,13 +44,13 @@ ul {
   border: 1px solid #555
 }
 
-li {
+ul.menu li {
   float: left;
   text-align: center;
   border-right: 1px solid #555;
 }
 
-li a, .dropbtn {
+ul.menu li a, .menu-dropbtn {
   display: inline-block;
   color: white;
   text-align: center;
@@ -58,19 +58,19 @@ li a, .dropbtn {
   text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+ul.menu li a:hover, .menu-dropdown:hover .menu-dropbtn {
   background-color: red;
 }
 
-li.dropdown {
-  display: inline-block;
+li.menu-dropdown {
+  display: inline-block;  
 }
 
-li:last-child {
+ul.menu li:last-child {
   border-right: none;
 }
 
-.dropdown-content {
+.menu-dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -79,7 +79,7 @@ li:last-child {
   z-index: 1;
 }
 
-.dropdown-content a {
+ul.menu div.menu-dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -87,8 +87,9 @@ li:last-child {
   text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.menu-dropdown-content a:hover {background-color: #f1f1f1;}
 
-.dropdown:hover .dropdown-content {
+.menu-dropdown:hover .menu-dropdown-content {
   display: block;
 }
+
