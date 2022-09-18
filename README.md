@@ -2,7 +2,7 @@
 
 A sandbox project to learn javascript coding.
 
-Go to https://joemat.github.io/qrcodegen-pwa/ for application.
+Go to https://joemat.codeberg.page/qrcodegen-pwa for application.
 
 # Kudos
 
