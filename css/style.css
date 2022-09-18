@@ -14,7 +14,7 @@ html,
 
 /* Center the content in the browser window */
 .container {
-  margin: auto;
+  width: 100%;
   text-align: center;
 }
 
@@ -32,3 +32,64 @@ html,
   text-align: center;
   align-self: center;
 }
+
+/* menu styling, based on code from https://www.w3schools.com/Css/css_navbar.asp */
+
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; 
+  overflow: hidden;
+  background-color: #333;
+  border: 1px solid #555
+}
+
+ul.menu li {
+  float: left;
+  text-align: center;
+  border-right: 1px solid #555;
+}
+
+ul.menu li a, .menu-dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.menu li a:hover, .menu-dropdown:hover .menu-dropbtn {
+  background-color: red;
+}
+
+li.menu-dropdown {
+  display: inline-block;  
+}
+
+ul.menu li:last-child {
+  border-right: none;
+}
+
+.menu-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+ul.menu div.menu-dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.menu-dropdown-content a:hover {background-color: #f1f1f1;}
+
+.menu-dropdown:hover .menu-dropdown-content {
+  display: block;
+}
+
