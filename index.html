@@ -46,8 +46,7 @@
       </ul>
 
       <!-- main content area -->
-      <h3 class="title">QR Code Generator</h3>
-
+      <br/>
       <textarea id="fileContent" name="textarea" rows="20" cols="40"
         oninput="updateQrCode()"></textarea>
       <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." hidden=true />
@@ -138,6 +137,41 @@ SCT
     replaceTextWith(DEFAULT_CONTENT);
     updateQrCode();
     showMainView();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      url = new URL(window.location);
+
+      const sharedTitle = url.searchParams.get('title');
+      const sharedText = url.searchParams.get('text');
+      const sharedUrl = url.searchParams.get('url');
+      const view = url.searchParams.get('view');
+
+      text = ""
+      if (sharedTitle != undefined) {
+        text += sharedTitle
+      }
+      if (sharedText != undefined) {
+        if (text.length != 0) {
+          text += "\n\n"
+        }
+        text += sharedText
+      }
+      if (sharedUrl != undefined) {
+        if (text.length != 0) {
+          text += "\n\n"
+        }
+        text += sharedUrl + "\n"
+      }
+
+      if (text.length != 0) {
+        replaceTextWith(text)
+      }
+
+      if (view === "qr") {
+        showQrCodeOnlyView();
+      }
+  });
+
 
     function replaceTextWith(newText) {
       recent = document.getElementById('fileContent').value
