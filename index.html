@@ -31,6 +31,7 @@
             <a href="javascript:loadVcardTemplate()">Template Vcard</a>
             <a href="javascript:loadPaymentTemplate()">Template Payment</a>
             <a href="javascript:loadWifiTemplate()">Template Wi-Fi Network</a>
+            <a href="javascript:replaceTextWith('')">Empty</a>
             <a href="javascript:loadRecent()">Recent</a>
           </div>
         </li>
@@ -48,7 +49,7 @@
       <h3 class="title">QR Code Generator</h3>
 
       <textarea id="fileContent" name="textarea" rows="20" cols="40"
-        oninput="updateQrCode()">https://joemat.github.io/qrcodegen-pwa/</textarea>
+        oninput="updateQrCode()"></textarea>
       <br /><input id="loadFileDialog" type="file" oninput="loadFile(event)" name="Load file ..." hidden=true />
       <br />
 
@@ -105,6 +106,7 @@
 
   <script src="lib/qrcode.js/qrcode.js"></script>
   <script>
+
     const VCARD_TEMPLATE = `BEGIN:VCARD
 VERSION:4.0
 FN:<Formatted name string>
@@ -129,10 +131,12 @@ SCT
 
 `
     const WIFI_TEMPLATE = `WIFI:S:<SSID>;T:<WEP|WPA|blank>;P:<PASSWORD>;H:<Hidden? true|false|blank>;;`
+    const DEFAULT_CONTENT = "https://joemat.codeberg.page/qrcodegen-pwa/@main/"
 
     var qrcode = undefined;
     var recent = "";
-    updateQrCode(); // show initial qrcode
+    replaceTextWith(DEFAULT_CONTENT);
+    updateQrCode();
     showMainView();
 
     function replaceTextWith(newText) {

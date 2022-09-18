@@ -2,20 +2,12 @@
 
 A sandbox project to learn javascript coding.
 
-Go to https://joemat.codeberg.page/qrcodegen-pwa for application.
+There is [deployed on codeberg pages](https://joemat.codeberg.page/qrcodegen-pwa/@main/).
 
-# Kudos
+# Kudos to
 
 * https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605
 * https://jamesjohnson280.github.io/hello-pwa/
 * https://davidshimjs.github.io/qrcodejs/
+* https://www.w3schools.com/Css/css_navbar.asp
 
-
-## Browser Compatibility
-
-Hello PWA has been tested in the following browsers:
-
-* Chrome 67 (Windows and Android)
-* Firefox 60
-* Safari 11
-* Edge 42
