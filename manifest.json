@@ -1,31 +1,48 @@
 {
   "name": "QRCodegen PWA",
   "short_name": "qrcodegen",
-  "icons": [{
-    "src": "images/128.png",
+  "icons": [
+    {
+      "src": "images/128.png",
       "sizes": "128x128",
       "type": "image/png"
-    }, {
+    },
+    {
       "src": "images/144.png",
       "sizes": "144x144",
       "type": "image/png"
-    }, {
+    },
+    {
       "src": "images/152.png",
       "sizes": "152x152",
       "type": "image/png"
-    }, {
+    },
+    {
       "src": "images/192.png",
       "sizes": "192x192",
       "type": "image/png"
-    }, {
+    },
+    {
       "src": "images/256.png",
       "sizes": "256x256",
       "type": "image/png"
-    }, {
+    },
+    {
       "src": "images/512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }],
+    }
+  ],
+  "share_target":  {
+    "action": "./index.html",
+    "method" : "GET",
+    "url_template": "?title={title}&text={text}&url={url}",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
   "lang": "en-US",
   "start_url": "./index.html",
   "display": "standalone",
