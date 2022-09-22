@@ -48,5 +48,5 @@
   "display": "standalone",
   "background_color": "white",
   "theme_color": "white",
-  "scope": "/app"
+  "scope": "./"
 }
