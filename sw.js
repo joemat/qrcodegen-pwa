@@ -4,7 +4,16 @@ var filesToCache = [
   './index.html',
   './css/style.css',
   './js/main.js',
-  './lib/qrcode.js/qrcode.js'
+  './lib/qrcode.js/qrcode.js',
+  './lib/qrcode.js/LICENSE',
+  './images/128.png',
+  './images/144.png',
+  './images/152.png',
+  './images/192.png',
+  './images/256.png',
+  './images/512.png',
+  './favicon.ico',
+  './sw.js'
 ];
 
 /* Start the service worker and cache all of the app's content */
