@@ -6,7 +6,7 @@ There is [deployed on codeberg pages](https://joemat.codeberg.page/qrcodegen-pwa
 
 # Development steps
 
-Looking at the single PRs shows what need to be done to implemented to feature.
+Looking at the single PRs shows what needs to be done to implemented a feature.
 
 1. [initial app](https://codeberg.org/joemat/qrcodegen-pwa/src/tag/qrcodegen_initial)
 2. [PR#1 app-like UI](https://codeberg.org/joemat/qrcodegen-pwa/pulls/1)
