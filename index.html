@@ -39,6 +39,7 @@
           <div class="menu-dropdown-content">
             <a href="javascript:showQrCodeOnlyView(true)">Show</a>
             <a href="javascript:document.getElementById('imgDownloadLink').click()">Save</a>
+            <a href="javascript:shareQrCode()">Share</a>
           </div>
         </li>
 
@@ -90,7 +91,8 @@
         License</a>)
       <br />
       <a href="https://www.w3schools.com/Css/css_navbar.asp" target="_blank">w3schools tutorials</a>
-
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#examples" target="_blank">developer.mozilla.org</a>
+      <a href="https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/share" target="_blank">learn.microsoft.com</a>
       <hr/>
       <h4>Specs</h4>
       <a href="https://en.wikipedia.org/wiki/EPC_QR_code" target="_blank">Payments</a>
@@ -274,6 +276,27 @@ SCT
       document.getElementById("aboutView").style.display = "none";
     }
 
+    function shareQrCode() {
+      const title = "QR Code";
+      const text = document.getElementById("qrcode").textContent
+      const data = {title, text};
+    
+      const url = fetch(qrCodeImage = document.querySelector("div.qrCode > img").getAttribute('src'))
+        .then(res => res.blob())
+        .then(blob => {
+          qrCodeFile = new File([blob], "qrcode.png",{ type: "image/png" })
+          const images = [ qrCodeFile ]
+          if (navigator.canShare && navigator.canShare({ files: images })) {
+              data.files = images;
+          }
+
+          try {
+              navigator.share(data);
+          } catch (e) {
+              console.log('Error sharing this tip', e);
+          }
+        })
+  }
   </script>
   </div>
   <script src="js/main.js"></script>
